@@ -1,0 +1,38 @@
+<div class="select-container"
+     #selectRef
+     (click)="setIsOpen(true)"
+     (blur)="setIsOpen(false)"
+>
+	<span class="select-value" *ngIf="!multiple; else multipleBlock">{{singleValue?.label ?? placeholderText}}</span>
+	<span class="clear-btn" (click)="clearOptions($event)">&times;</span>
+	<div class="select-divider" *ngIf="value"></div>
+	<div class="select-caret" *ngIf="value"></div>
+	<div class="select-options" [class.show]="isOpen">
+		<div *ngIf="enableSearch" class="select-search"><input type="text" (input)="searchItem()" [formControl]="searchCtrl" placeholder="Search..."></div>
+		<ul class="select-options-list">
+			<li
+				*ngFor="let opt of filteredOptions; let i = index"
+				class="select-option"
+				(click)="selectOption(opt, $event)"
+				(mouseenter)="setHighlightedIndex(i)"
+				[class.selected]="isOptionSelected(opt)"
+				[class.highlighted]="highlightedIndex === i"
+				[class.disabled]="opt.disabled"
+			>{{opt.label}}</li>
+		</ul>
+	</div>
+</div>
+
+<ng-template #multipleBlock>
+	<span class="select-value" #multipleBlock>
+		{{(arrayedValue?.length) ? '' : placeholderText}}
+		<button
+			*ngFor="let v of arrayedValue; let i = index"
+			(click)="selectOption(v, $event)"
+			class="option-badge"
+		>
+		{{v.label}}
+			<span class="remove-btn">&times;</span>
+		</button>
+	</span>
+</ng-template>

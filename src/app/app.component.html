@@ -1,0 +1,4 @@
+<app-select-box [options]="selectOptions1" (valueChanged)="selectChange($event)" [enableSearch]="true"></app-select-box>
+<app-select-box [options]="selectOptions2" [multiple]="true" (valueChanged)="selectChange($event)"></app-select-box>
+<app-select-box [options]="selectOptions2" [multiple]="true" [maxCount]="3" (valueChanged)="selectChange($event)" [enableSearch]="true"></app-select-box>
+<router-outlet></router-outlet>
